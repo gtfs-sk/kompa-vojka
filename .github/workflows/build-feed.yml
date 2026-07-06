@@ -54,7 +54,7 @@ jobs:
 
     - name: Package new feed
       run: |
-        cd fragment
+        cd ../fragment
         zip -r gtfs.zip .
     - name: Create release
       uses: Roang-zero1/github-create-release-action@v2
