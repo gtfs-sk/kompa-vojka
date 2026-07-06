@@ -44,7 +44,8 @@ jobs:
       id: check_version
       run: |
        git status --porcelain
-       if [ -n "$(git status --porcelain)" ]; then
+       COMMIT_TOO_OLD=$(cd generator && LAST_COMMIT_DATE="$COMMIT_DATE" bun -e "import { isLastCommitTooOld } from './library/isLastCommitTooOld.ts'; console.log(isLastCommitTooOld())")
+       if [ -n "$(git status --porcelain)" ] || [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || [ "$COMMIT_TOO_OLD" = "true" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "New feed generated, committing changes."
           else
