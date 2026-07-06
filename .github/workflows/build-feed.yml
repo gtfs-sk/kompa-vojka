@@ -53,14 +53,19 @@ jobs:
           pull: '--rebase --autostash'
 
     - name: Package new feed
+      if: steps.check_version.outputs.changed == 'true'
       run: |
         cd ../fragment
         zip -r gtfs.zip .
+    
     - name: Create release
+      if: steps.check_version.outputs.changed == 'true'
       uses: Roang-zero1/github-create-release-action@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
     - name: Upload release artifacts
+      if: steps.check_version.outputs.changed == 'true'
       uses: Roang-zero1/github-upload-release-artifacts-action@v2
       with:
         args: "fragment/gtfs.zip"
