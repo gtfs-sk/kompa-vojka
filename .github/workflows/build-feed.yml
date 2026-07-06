@@ -5,6 +5,8 @@ permissions:
   pull-requests: write
   issues: write
   repository-projects: write
+  pages: write
+  id-token: write
 
 on:
   workflow_dispatch:
@@ -62,20 +64,13 @@ jobs:
     - name: Package new feed
       if: steps.check_version.outputs.changed == 'true'
       run: |
-        cd ../fragment
+        cd fragment
         zip -r gtfs.zip .
-    
-    - name: Create release
+
+    - name: Deploy feed to GitHub Pages
       if: steps.check_version.outputs.changed == 'true'
-      uses: Roang-zero1/github-create-release-action@v2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Upload release artifacts
-      if: steps.check_version.outputs.changed == 'true'
-      uses: Roang-zero1/github-upload-release-artifacts-action@v2
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        args: "fragment/gtfs.zip"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./fragment
+        keep_files: false
