@@ -8,7 +8,7 @@ import { isLastCommitTooOld } from "./library/isLastCommitTooOld";
 
 const FERRY_TRAVEL_TIME_MINUTES = 10; // Time it takes for the ferry to travel from one station to another, in minutes
 
-console.timeLog("CREATE `kompa-vojka` feed")
+console.time("CREATE `kompa-vojka` feed")
 
 const KEPTHash = await fs.readFile("../keep/hash", "utf-8")
 	.catch((reason: ErrnoException) => {
