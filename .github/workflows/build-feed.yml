@@ -70,6 +70,13 @@ jobs:
         cd fragment
         zip -r gtfs.zip .
 
+    - name: Upload feed artifact
+      if: steps.check_version.outputs.changed == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: gtfs-feed
+        path: fragment/gtfs.zip
+
   deploy:
       needs: build
       if: needs.build.outputs.changed == 'true'
@@ -78,14 +85,16 @@ jobs:
         url: ${{ steps.deployment.outputs.page_url }}
       runs-on: ubuntu-latest
       steps:
-        - name: Checkout
-          uses: actions/checkout@v4
+        - name: Download feed artifact
+          uses: actions/download-artifact@v4
+          with:
+            name: gtfs-feed
+            path: fragment
         - name: Setup Pages
           uses: actions/configure-pages@v5
         - name: Upload artifact
           uses: actions/upload-pages-artifact@v3
           with:
-            # Upload entire repository
             path: 'fragment'
         - name: Deploy to GitHub Pages
           id: deployment
