@@ -23,8 +23,6 @@ const StationTimetable = {
 	hash: ""
 }
 
-console.log(StationTimetable.Vojka)
-
 StationTimetable.hash = calculateKeptHash(StationTimetable.Vojka, StationTimetable.Kyselica)
 if (StationTimetable.hash === KEPTHash || isLastCommitTooOld()) { // Check if the hash of the fetched data is the same as the last kept hash, if so, skip feed generation
 	console.log("No changes detected, skipping feed generation")
@@ -67,6 +65,7 @@ await fs.writeFile("../fragment/calendar_dates.txt", Papa.unparse(calendar.calen
 
 await fs.writeFile("../keep/hash", StationTimetable.hash)
 
+console.timeEnd("CREATE `kompa-vojka` feed")
 
 // Create a Hash for this run from fetched data
 function calculateKeptHash(station1: StationTimetable, station2: StationTimetable): string {
