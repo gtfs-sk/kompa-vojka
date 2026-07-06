@@ -24,7 +24,9 @@ const StationTimetable = {
 }
 
 StationTimetable.hash = calculateKeptHash(StationTimetable.Vojka, StationTimetable.Kyselica)
-if (StationTimetable.hash === KEPTHash || isLastCommitTooOld()) { // Check if the hash of the fetched data is the same as the last kept hash, if so, skip feed generation
+// Check if the hash of the fetched data is the same as the last kept hash, if so, skip feed generation
+// if the last commit is too old or if the workflow was not triggered by a manual dispatch, we will not skip feed generation
+if (StationTimetable.hash === KEPTHash && !isLastCommitTooOld() && process.env.GITHUB_EVENT_NAME !== "workflow_dispatch") { 
 	console.log("No changes detected, skipping feed generation")
 	process.exit(0)
 }
