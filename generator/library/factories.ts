@@ -1,6 +1,5 @@
 import { SHA1 } from "bun";
 import type { StationDeparture } from "../types/timetable";
-import {isHoliday, getAllHolidays, getHolidayName} from 'slovak-holidays';
 import { restDays } from "./restdays";
 
 const TODAY = new Date();
@@ -16,6 +15,7 @@ export function makeTrip(headsign: "Vojka nad Dunajom" | "Kyselica", tripId: num
 		trip_id: `trip-${tripId}`,
 		trip_headsign: headsign,
 		direction_id: headsign === "Vojka nad Dunajom" ? 1 : 0,
+		shape_id: `shape_${headsign === "Vojka nad Dunajom" ? "kys_voj" : "voj_kys"}`,
 		block_id: "kompa",
 		wheelchair_accessible: 1,
 		bikes_allowed: 1,
@@ -33,7 +33,8 @@ export function makeStopTimes(trip: ReturnType<typeof makeTrip>, stationDepartur
 			stop_sequence: 1,
 			pickup_type: 0,
 			drop_off_type: 0,
-			timepoint: 1
+			timepoint: 1,
+			shape_dist_traveled: "0"
 		},
 		{
 			trip_id: trip.trip_id,
@@ -43,7 +44,8 @@ export function makeStopTimes(trip: ReturnType<typeof makeTrip>, stationDepartur
 			stop_sequence: 2,
 			pickup_type: 0,
 			drop_off_type: 0,
-			timepoint: 1
+			timepoint: 1,
+			shape_dist_traveled: "0.559"
 		}
 	]
 }
@@ -56,7 +58,7 @@ export function makeFeedInfo(feedHash: string) {
 			feed_lang: "sk",
 			feed_start_date: `${TODAY.getFullYear()}${String(TODAY.getMonth() + 1).padStart(2, '0')}${String(TODAY.getDate()).padStart(2, '0')}`,
 			feed_end_date: "",
-			feed_version: SHA1.hash(feedHash, "hex").slice(0, 8),
+			feed_version: `${process.env.GITHUB_RUN_ID ?? 0}-${SHA1.hash(feedHash, "hex").slice(0, 8)}`,
 		}
 	]
 }

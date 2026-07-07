@@ -6,7 +6,7 @@ import { makeCalendars, makeFeedInfo, makeStopTimes, makeTrip } from "./library/
 import Papa from 'papaparse';
 import { isLastCommitTooOld } from "./library/isLastCommitTooOld";
 
-const FERRY_TRAVEL_TIME_MINUTES = 10; // Time it takes for the ferry to travel from one station to another, in minutes
+const FERRY_TRAVEL_TIME_MINUTES = 5; // Time it takes for the ferry to travel from one station to another, in minutes
 
 console.time("CREATE `kompa-vojka` feed")
 
