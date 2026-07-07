@@ -1,4 +1,4 @@
-shape_id,shape_pt_lat,shape_pt_lon,shape_pt_sequence
+shape_id,shape_pt_lat,shape_pt_lon,shape_pt_sequence,shape_dist_traveled
 shape_kys_voj,47.9843335,17.3859951,1,0
 shape_kys_voj,47.9802310,17.3816538,2,0.559
 shape_voj_kys,47.9802310,17.3816538,1,0
