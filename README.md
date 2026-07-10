@@ -4,7 +4,7 @@ GTFS feed generator for the Vojka nad Dunajom–Kyselica ferry service operated 
 
 The feed is rebuilt automatically every day and published to a static URL so transit apps (Google Maps, etc.) can consume it.
 
-**Static feed URL:** `https://gtfs-sk.github.io/kompa-vojka/gtfs.zip`
+**Static feed URL:** [`https://github.gtfs.sk/kompa-vojka/gtfs.zip`](https://github.gtfs.sk/kompa-vojka/gtfs.zip)
 
 ---
 
