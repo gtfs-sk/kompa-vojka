@@ -76,6 +76,16 @@ jobs:
       with:
         name: gtfs-feed
         path: fragment/gtfs.zip
+    - name: Make HTML page
+      if: steps.check_version.outputs.changed == 'true'
+      run: |
+        bunx gtfs-to-html --configPath ./keep/gtfs-to-html.config.json
+    - name: Upload HTML Page artifact
+      if: steps.check_version.outputs.changed == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: page
+        path: fragment/html/
 
   deploy:
       needs: build
@@ -89,6 +99,11 @@ jobs:
           uses: actions/download-artifact@v4
           with:
             name: gtfs-feed
+            path: fragment
+        - name: Download feed artifact
+          uses: actions/download-artifact@v4
+          with:
+            name: page
             path: fragment
         - name: Setup Pages
           uses: actions/configure-pages@v5

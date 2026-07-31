@@ -1,0 +1,10 @@
+{
+	"agencies": [
+		{
+			"agencyKey": "feed",
+			"path": "./fragment"
+		}
+	],
+	"outputPath": "./fragment/html",
+	"outputFormat": "html"
+}
