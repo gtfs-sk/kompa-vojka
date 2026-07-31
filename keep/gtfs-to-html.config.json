@@ -6,5 +6,8 @@
 		}
 	],
 	"outputPath": "./fragment/html",
-	"outputFormat": "html"
+	"outputFormat": "html",
+	"mapStyleUrl": "https://tiles.openfreemap.org/styles/bright",
+	"showMap": true,
+	"timeFormat": "hh:mm"
 }
