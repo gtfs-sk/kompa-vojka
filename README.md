@@ -13,7 +13,7 @@ The feed is rebuilt automatically every day and published to a static URL so tra
 1. The GitHub Actions workflow runs daily at 01:00 UTC.
 2. `generator/` fetches the live timetable from the [kompa-vojka.sk](https://kompa-vojka.sk) API.
 3. If the timetable data changed (detected via SHA1 hash stored in `keep/hash`), a new GTFS feed is written into `fragment/`.
-4. The updated `fragment/` files are committed back to the repo, zipped, and deployed to GitHub Pages.
+4. The updated `fragment/` files are zipped and deployed to GitHub Pages.
 
 ```
 kompa-vojka.sk API
@@ -37,7 +37,7 @@ generator/            # Feed generator source (TypeScript, runs on Bun)
   base/               # Static GTFS files (agency, stops, routes, fares)
   library/            # Business logic (API client, factories, holidays)
   index.ts            # Entry point
-fragment/             # Generated GTFS feed (committed by CI, gitignored locally)
+fragment/             # Generated GTFS feed (gitignored)
 keep/
   hash                # SHA1 of last processed timetable — used to skip unchanged runs
 ```
@@ -70,7 +70,7 @@ The generated files will appear in `fragment/`. See [`generator/README.md`](gene
 
 The workflow in `.github/workflows/build-feed.yml` has two jobs:
 
-- **build** — runs the generator, commits any changed `fragment/` files, packages `gtfs.zip`, and uploads it as a workflow artifact.
+- **build** — runs the generator, commits Hash Keeper file, packages `gtfs.zip`, and uploads it as a workflow artifact.
 - **deploy** — downloads the artifact and publishes it to GitHub Pages.
 
 Both jobs only do meaningful work when the feed actually changed (or when triggered manually via `workflow_dispatch`).
