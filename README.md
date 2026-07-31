@@ -1,4 +1,7 @@
-# kompa-vojka
+<img width="5712" height="3213" alt="IMG_7709" src="https://github.com/user-attachments/assets/f6e034f1-b7d6-48f7-905f-cf39d97c2577" />
+
+# Kompa Vojka GTFS Feed
+`gtfs.sk/kompa-vojka`
 
 GTFS feed generator for the Vojka nad Dunajom–Kyselica ferry service operated by Vodohospodárska výstavba, š. p.
 
